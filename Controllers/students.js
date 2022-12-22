@@ -6,7 +6,7 @@ connectToDatabase((err)=>{
 });
 
 
-export const getStudents =  (req, res) => {
+const getStudents =  (req, res) => {
   let ece = [];
   db.collection('ece')
   .find()
@@ -18,7 +18,7 @@ export const getStudents =  (req, res) => {
 })
 };
 
-export const getStudent = (req,res) =>{
+const getStudent = (req,res) =>{
   db.collection('ece').findOne({regno : req.params.regno})
   .then(result =>{
     if(result === null) res.status(200).send('Stuent Record does not exist');
@@ -31,7 +31,7 @@ export const getStudent = (req,res) =>{
 };
 
 
-export const createStudent =  (req, res) => {
+const createStudent =  (req, res) => {
   const student = req.body
 
   db.collection('ece').insertOne(student)
@@ -44,7 +44,7 @@ export const createStudent =  (req, res) => {
   
 };
 
-export const deleteStudent = (req,res) =>{
+const deleteStudent = (req,res) =>{
   db.collection('ece').deleteOne({regno : req.params.regno})
   .then(result =>{
     res.status(200).send(result);
@@ -55,7 +55,7 @@ export const deleteStudent = (req,res) =>{
 
 };
 
-export const updateStudent = (req, res) =>{
+const updateStudent = (req, res) =>{
   const updates = req.body;
   db.collection('ece').updateOne({regno : req.params.regno}, {$set : updates})
   .then(result => {
@@ -66,4 +66,5 @@ export const updateStudent = (req, res) =>{
   })
 
 };
+export {getStudents,getStudent,createStudent,deleteStudent,updateStudent};
 
